@@ -1,31 +1,30 @@
-    package be.intec.scrumOprdacht.models;
+package be.intec.scrumOprdacht.models;
 
-    import lombok.*;
-    import javax.persistence.*;
+import lombok.*;
 
-    @Data
-    @Entity
-    @NoArgsConstructor
-    @AllArgsConstructor
-    @Setter
-    @Getter
-    @Table(name="admin")
-    public class Admin {
+import javax.persistence.*;
 
-        @Id
-        @GeneratedValue(strategy = GenerationType.AUTO)
-        @Column(name = "admin_id", nullable = false)
-        private Integer id;
+@Data
+@Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Setter
+@Getter
+@Table(name = "admin")
+public class Admin {
 
-        @Column(name = "user_name", nullable = false, unique = true)
-        private String userName;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", nullable = false)
+    private Integer id;
 
-        @Column(name = "email", nullable = false)
-        private String email;
+    @Column(name = "user_name", nullable = false, unique = true)
+    private String userName;
 
-        @Column(name = "pass_code", nullable = false)
-        private String passCode;
+    @Column(name = "email", nullable = false)
+    private String email;
 
+    @Column(name = "passcode", nullable = false)
+    private String passCode;
 
-
-    }
+}
