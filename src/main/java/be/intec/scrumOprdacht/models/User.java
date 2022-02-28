@@ -48,59 +48,15 @@
     //    @Column(name = "retype_the_passcode", nullable = false)
     //    private String retypeThePasscode;
 
-//        @OneToMany
-//        @JoinColumn(name = "author")
-//        private List<Blog> blogs = new ArrayList<>();
+    //     @OneToMany
+    //     @JoinColumn(name = "author")
+    //     private List<Blog> blogs = new ArrayList<>();
 
-        /**
-         * @return the id
-         */
+
 
 
     }
 
-//        @ManyToOne
-//        @JoinColumn(name = "sender")
-//        private User sender;
-
-    //    DROP TABLE IF EXISTS TBL_USERS;
-    //        CREATE TABLE TBL_USERS (
-    //        id INT AUTO_INCREMENT  PRIMARY KEY,
-    //        first_name VARCHAR(250) NOT NULL,
-    //        last_name VARCHAR(250) NOT NULL,
-    //        user_name VARCHAR(250) NOT NULL UNIQUE,
-    //        email VARCHAR(250) NOT NULL,
-    //        street VARCHAR(250),
-    //        house_number INT,
-    //        city VARCHAR(250),
-    //        zip INT,
-    //        passcode VARCHAR(250) NOT NULL
-    //        );
-    //
-    //        DROP TABLE IF EXISTS TBL_ADMIN;
-    //        CREATE TABLE TBL_ADMIN (
-    //        id INT AUTO_INCREMENT  PRIMARY KEY,
-    //        user_name VARCHAR(250) NOT NULL UNIQUE,
-    //        email VARCHAR(250) NOT NULL,
-    //        passcode VARCHAR(250) NOT NULL
-    //        );
-    //
-    //        DROP TABLE IF EXISTS TBL_BLOGS;
-    //        CREATE TABLE TBL_BLOGS (
-    //        id INT AUTO_INCREMENT  PRIMARY KEY,
-    //        body TEXT NOT NULL,
-    //        title VARCHAR(255) NOT NULL,
-    //        creation_date TIMESTAMP NOT NULL,
-    //        user_id INT NOT NULL
-    //        );
-    //        DROP TABLE IF EXISTS TBL_COMMENTS;
-    //        CREATE TABLE TBL_COMMENTS (
-    //        id INT AUTO_INCREMENT  PRIMARY KEY,
-    //        body TEXT NOT NULL,
-    //        title VARCHAR(255) NOT NULL,
-    //        creation_date TIMESTAMP NOT NULL,
-    //        user_id INT NOT NULL
-    //        );
 
 
 
