@@ -29,8 +29,14 @@ public class Blog {
     @Column(name = "creation_date", nullable = false)
     private Timestamp creationDate;
 
-//    @ManyToOne
-//    @JoinColumn(name = "id")
-//    private User user;
+    @Column(name = "views")
+    private Long views;
+
+    @Column(name = "likes")
+    private Long likes;
+
+    @ManyToOne
+    @JoinColumn(name = "id")
+    private User user;
 
 }
