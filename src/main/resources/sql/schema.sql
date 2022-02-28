@@ -1,4 +1,4 @@
-
+DROP TABLE IF EXISTS users_blog;
 CREATE TABLE users_blog (
                                id INTEGER AUTO_INCREMENT  PRIMARY KEY,
                                first_name VARCHAR(250) NOT NULL,
@@ -12,7 +12,7 @@ CREATE TABLE users_blog (
                                passcode VARCHAR(250) NOT NULL
 );
 
-
+DROP TABLE IF EXISTS admin_blog;
 CREATE TABLE admin_blog (
                              admin_id INTEGER AUTO_INCREMENT  PRIMARY KEY,
                              user_name VARCHAR(250) NOT NULL UNIQUE,
@@ -20,7 +20,7 @@ CREATE TABLE admin_blog (
                              passcode VARCHAR(250) NOT NULL
 );
 
-
+DROP TABLE IF EXISTS blog_posts;
 CREATE TABLE blog_posts (
                              blog_id INTEGER AUTO_INCREMENT  PRIMARY KEY,
                              body TEXT NOT NULL,
@@ -29,7 +29,7 @@ CREATE TABLE blog_posts (
                              user_id INTEGER NOT NULL
 );
 
-
+DROP TABLE IF EXISTS blog_comments;
 CREATE TABLE blog_comments (
                            comment_id INTEGER AUTO_INCREMENT  PRIMARY KEY,
                            body TEXT NOT NULL,
