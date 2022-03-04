@@ -9,11 +9,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class UserControllerImpl implements UserController {
 
 
-    private UserRepository userRepository;
-
-    @GetMapping("home")
-    public String hello1() {
-        return "index";
-    }
+//    @GetMapping("home")
+//    public String hello1() {
+//        return "index";
+//    }
 
 }

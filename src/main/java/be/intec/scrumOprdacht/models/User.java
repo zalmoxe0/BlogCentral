@@ -1,20 +1,36 @@
 package be.intec.scrumOprdacht.models;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hibernate.Hibernate;
+
 import javax.persistence.*;
-import java.util.List;
+import java.util.Objects;
 
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter
 @Getter
-@Table(name = "users_blog")
+@Table(name = "users")
 public class User {
+
+    /*
+    one user can write many comments -> many to one
+    one comment can not have many user
+
+    one user can write many blogs -> many to one
+    one blog can not have many users
+
+    one blog can have many comments -> many to one
+    one comment can not have many blogs    */
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
+    @Column(name = "id")
     private Integer id;
 
     @Column(name = "first_name", nullable = false)
@@ -32,8 +48,8 @@ public class User {
     @Column(name = "street")
     private String street;
 
-    @Column(name = "house_no")
-    private String houseNo;
+    @Column(name = "house_number")
+    private String house_number;
 
     @Column(name = "city")
     private String city;
@@ -44,14 +60,22 @@ public class User {
     @Column(name = "passcode", nullable = false)
     private String passCode;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy="userBlogOwner")
-    private List<Blog> blogs;
+    @Enumerated(value = EnumType.STRING)
+    private Role role;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy="userOwnerComm")
-    private List<Comment> comments;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        User user = (User) o;
+        return id != null && Objects.equals(id, user.id);
+    }
 
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }
-
 
 
 
