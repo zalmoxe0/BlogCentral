@@ -4,11 +4,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class BlogCentralApp {
+public class BlogCentralMainApp {
 
     public static void main(String[] args) {
+        SpringApplication.run(BlogCentralMainApp.class, args);
 
-        SpringApplication.run(BlogCentralApp.class,args);
     }
 
 }
+
