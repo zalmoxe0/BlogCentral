@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+
+<body>
+<h2>Post Views</h2>
+<div th:if="${post}" id="like">
+    <a th:href="@{/posts/like/{id}(id=${post.id})}">
+        <button type="button"> Like </button>
+    </a>
+</div>
+
+
+
+
+<div th:if="${error}" id ="error">
+    <h2 class="error" th:text="${error}">Error</h2>
+</div>
+<main th:if="${post}" id="posts">
+    <article>
+        <h2 class="title" th:text="${post.title}">Post Title</h2>
+        <p class="content" th:utext="${post.body}">Post content</p>
+        <h2 class="views" th:text="${post.views}">Post Views</h2>
+    </article>
+</main>
+
+</body>
+
+</html>
