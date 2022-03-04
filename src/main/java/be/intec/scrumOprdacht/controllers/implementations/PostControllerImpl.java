@@ -93,7 +93,7 @@ public class PostControllerImpl implements PostController {
                                    @RequestParam("size") Optional<Integer> size) {
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(10);
-        Page<Post> postPage = postService.getPostsPageSortedByNewest(currentPage,pageSize);
+        Page<Post> postPage = postService.getPostsPageSortedByNewest(currentPage-1,pageSize);
         model.addAttribute("postPage", postPage);
 
         int totalPages = postPage.getTotalPages();
