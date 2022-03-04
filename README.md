@@ -1,2 +1,0 @@
-# BlogCentral
- Spring blog intec
