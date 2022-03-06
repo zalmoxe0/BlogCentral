@@ -40,7 +40,7 @@ public class Comment {
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "post")
+    @JoinColumn(name = "post_id")
     private Post post;
 
     @Override

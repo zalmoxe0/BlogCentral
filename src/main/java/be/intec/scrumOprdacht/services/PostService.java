@@ -70,6 +70,11 @@ public class PostService {
         return postRepository.findAll(postsWithPages);
     }
 
+    private Page<Post> getPostsPageSortedByMostComments(int page, int size) {
+        Pageable postsWithPages = PageRequest.of(page,size);
+        return postRepository.findAllWithCommentsCountDesc(postsWithPages);
+    }
+
 
     public List<Post> getAllPosts(){
         return postRepository.findAll();
@@ -125,6 +130,20 @@ public class PostService {
     }
 
 
+    public Post getMostLikedPost() {
+        Page<Post> postPage = getPostsPageSortedByMostLikes(0, 1);
+        return postPage.toList().get(0);
+    }
+
+    public Post getMostViewedPost() {
+        Page<Post> postPage = getPostsPageSortedByMostViews(0, 1);
+        return postPage.toList().get(0);
+    }
+
+    public Post getMostCommentedPost() {
+        Page<Post> postPage = getPostsPageSortedByMostComments(0, 1);
+        return postPage.toList().get(0);
+    }
 
 
 }

@@ -101,7 +101,8 @@
                             <h5 class="card-title" th:text="${post.title}" >Blog</h5>
                             <p class="card-text" th:text="${post.body}" >Blog description</p>
                             <p class="card-text" th:text="${post.creation}">
-                            <p class="card-text"><small class="text-muted">Views: X Likes: X</small></p>
+                            <p class="card-text" th:text="${'Views: ' + post.views + ' Likes: ' + post.likes}"><small class="text-muted">Views: X Likes: X</small></p>
+                            <a th:href="@{/posts/view/{id}(id=${post.id})}" class="btn btn-primary" >View</a>
                         </div>
                     </div>
                 </div>
@@ -113,25 +114,25 @@
             <div class="card mb-3">
                 <h5 class="card-header">Most Liked</h5>
                 <div class="card-body">
-                    <h5 class="card-title">Blog</h5>
-                    <p class="card-text">Blog description</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                    <h5 class="card-title" th:text="${mostLikedPost.title}" >Blog</h5>
+                    <p class="card-text" th:text="${mostLikedPost.body}">Blog description</p>
+                    <a th:href="@{/posts/view/{id}(id=${mostLikedPost.id})}" class="btn btn-primary" >View</a>
                 </div>
             </div>
             <div class="card mb-3">
                 <h5 class="card-header">Most Viewed</h5>
                 <div class="card-body">
-                    <h5 class="card-title">Blog</h5>
-                    <p class="card-text">Blog description</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                    <h5 class="card-title" th:text="${mostViewedPost.title}">Blog</h5>
+                    <p class="card-text" th:text="${mostViewedPost.body}">Blog description</p>
+                    <a th:href="@{/posts/view/{id}(id=${mostViewedPost.id})}" class="btn btn-primary">View</a>
                 </div>
             </div>
             <div class="card mb-3">
                 <h5 class="card-header">Most Commented</h5>
                 <div class="card-body">
-                    <h5 class="card-title">Blog</h5>
-                    <p class="card-text">Blog description</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                    <h5 class="card-title" th:text="${mostCommentedPost.title}">Blog</h5>
+                    <p class="card-text" th:text="${mostCommentedPost.body}">Blog description</p>
+                    <a th:href="@{/posts/view/{id}(id=${mostCommentedPost.id})}" class="btn btn-primary">View</a>
                 </div>
             </div>
 
