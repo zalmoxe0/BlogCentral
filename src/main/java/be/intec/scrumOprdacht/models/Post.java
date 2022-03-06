@@ -8,6 +8,7 @@ import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -35,6 +36,11 @@ public class Post {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User owner;
+
+    @OneToMany
+    @JoinColumn(name = "post_id")
+    private List<Comment> comments;
+
 
     @Column(name = "views")
     private Long views;

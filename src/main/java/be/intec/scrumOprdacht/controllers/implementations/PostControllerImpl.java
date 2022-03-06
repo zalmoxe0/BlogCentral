@@ -3,13 +3,16 @@ package be.intec.scrumOprdacht.controllers.implementations;
 import be.intec.scrumOprdacht.controllers.interfaces.PostController;
 import be.intec.scrumOprdacht.models.Comment;
 import be.intec.scrumOprdacht.models.Post;
+import be.intec.scrumOprdacht.models.User;
 import be.intec.scrumOprdacht.services.PostService;
+import be.intec.scrumOprdacht.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -21,6 +24,7 @@ import java.util.stream.IntStream;
 public class PostControllerImpl implements PostController {
 
     private PostService postService;
+    private UserService userService;
 
     @Autowired
     public PostControllerImpl(PostService postService) {
@@ -103,6 +107,17 @@ public class PostControllerImpl implements PostController {
                     .collect(Collectors.toList());
             model.addAttribute("pageNumbers", pageNumbers);
         }
+
+        Post mostLikedPost = postService.getMostLikedPost();
+        model.addAttribute("mostLikedPost",mostLikedPost);
+
+        Post mostViewedPost = postService.getMostViewedPost();
+        model.addAttribute("mostViewedPost",mostViewedPost);
+
+        Post mostCommentedPost = postService.getMostCommentedPost();
+        model.addAttribute("mostCommentedPost",mostCommentedPost);
+
+
         return "index";
     }
 
@@ -150,10 +165,13 @@ public class PostControllerImpl implements PostController {
         return "posts/view";
     }
 
+
 //    @GetMapping("home")
 //    public String showPosts(Model model) {
 //        List<Post> Posts = postService.getAllPosts();
 //        model.addAttribute("Posts", Posts);
 //        return "index";
 //    }
+
+
 }
