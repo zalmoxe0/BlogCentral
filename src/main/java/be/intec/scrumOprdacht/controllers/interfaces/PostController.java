@@ -15,7 +15,7 @@ public interface PostController {
    // String showNewestPosts(Model model);
    // String showOldestPosts(Model model);
    // String showPapularPosts(Model model, Optional<Integer> page, Optional<Integer> size);
-   String showNewestPosts(Model model, Optional<Integer> page, Optional<Integer> size);
+   String showPosts(Model model,Optional<String> criteria, Optional<Integer> page, Optional<Integer> size);
    // String showOldestPosts(Model model, Optional<Integer> page, Optional<Integer> size);
    //String showMostLikedPost();
    //int showMostCommentedPost();

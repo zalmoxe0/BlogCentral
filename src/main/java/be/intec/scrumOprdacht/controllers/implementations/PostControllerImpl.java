@@ -93,11 +93,22 @@ public class PostControllerImpl implements PostController {
 
     @Override
     @GetMapping("home")
-    public String showNewestPosts(Model model,@RequestParam("page") Optional<Integer> page,
-                                   @RequestParam("size") Optional<Integer> size) {
+    public String showPosts(Model model,@RequestParam Optional<String> criteria,@RequestParam("page") Optional<Integer> page,
+                            @RequestParam("size") Optional<Integer> size) {
+
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(10);
-        Page<Post> postPage = postService.getPostsPageSortedByNewest(currentPage-1,pageSize);
+        String pageCriteria = criteria.orElse("newest");
+
+        Page<Post> postPage = null;
+        if("views".equals(pageCriteria)){
+            postPage = postService.getPostsPageSortedByMostViews(currentPage-1,pageSize);
+        }else if("oldest".equals(pageCriteria)){
+            postPage = postService.getPostsPageSortedByOldest(currentPage-1,pageSize);
+        }else {
+            postPage = postService.getPostsPageSortedByNewest(currentPage-1,pageSize);
+        }
+
         model.addAttribute("postPage", postPage);
 
         int totalPages = postPage.getTotalPages();
