@@ -77,7 +77,8 @@ public class PostControllerImpl implements PostController {
         model.addAttribute("pageTitle", "Search result for: '" + keyword + "'");
         model.addAttribute("searchResult", searchResult);
 
-        return "detailpage";
+        return "searchresults";
+
     }
 
 }
