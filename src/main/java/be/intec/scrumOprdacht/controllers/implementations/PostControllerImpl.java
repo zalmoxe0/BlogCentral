@@ -4,9 +4,11 @@ import be.intec.scrumOprdacht.controllers.interfaces.PostController;
 import be.intec.scrumOprdacht.models.Post;
 import be.intec.scrumOprdacht.services.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @Controller
@@ -66,17 +68,16 @@ public class PostControllerImpl implements PostController {
     }
 
     // SEARCH FUNCTION HEADER
-    @GetMapping(path = {"/","/search"})
-    public String home(Model model, String keyword) {
-        if(keyword != null) {
-            List<Post> list = postService.getByKeyword(keyword);
-            model.addAttribute("list", list);
-            return "detailpage";
-        }else {
-//            List<Post> list = postService.getPosts();
-//            model.addAttribute("list", list);
-            return "redirect:index";
-          }
+    @GetMapping("/search")
+    public String Search(@Param("keyword") String keyword, Model model){
+
+        List<Post> searchResult = postService.search(keyword);
+
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("pageTitle", "Search result for: '" + keyword + "'");
+        model.addAttribute("searchResult", searchResult);
+
+        return "searchresults";
 
     }
 

@@ -9,9 +9,5 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class UserControllerImpl implements UserController {
 
 
-//    @GetMapping("home")
-//    public String hello1() {
-//        return "index";
-//    }
 
 }
