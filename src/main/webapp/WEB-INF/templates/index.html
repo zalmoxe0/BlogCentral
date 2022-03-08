@@ -59,7 +59,6 @@
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
 
-
         </div>
     </div>
 
@@ -109,17 +108,17 @@
         <div class="col-8">
 
 
-            <div class="card mb-3" th:each="post: ${posts}" style="max-width: 800px;">
-                <div class="row g-0">
-                    <div class="col-md-5"
-                         style="background-image: url('http://www.3brecruitment.co.uk/website/assets/images/placeholders/blog-placeholder.jpg');background-size: cover">
+            <div class="card mb-3" th:each="post, iStat: ${postPage.content}" style="max-width: 800px;">
+                <div class="row g-0" >
+                    <div class="col-md-5" style="background-image: url('http://www.3brecruitment.co.uk/website/assets/images/placeholders/blog-placeholder.jpg');background-size: cover">
                     </div>
-                    <div class="col-md-7">
+                    <div class="col-md-7" >
                         <div class="card-body">
-                            <h5 class="card-title" th:text="${post.title}">Blog</h5>
-                            <p class="card-text" th:text="${post.body}">Blog description</p>
+                            <h5 class="card-title" th:text="${post.title}" >Blog</h5>
+                            <p class="card-text" th:text="${post.body}" >Blog description</p>
                             <p class="card-text" th:text="${post.creation}">
-                            <p class="card-text"><small class="text-muted">Views: X Likes: X</small></p>
+                            <p class="card-text" th:text="${'Views: ' + post.views + ' Likes: ' + post.likes}"><small class="text-muted">Views: X Likes: X</small></p>
+                            <a th:href="@{/posts/view/{id}(id=${post.id})}" class="btn btn-primary" >View</a>
                         </div>
                     </div>
                 </div>
@@ -131,44 +130,45 @@
             <div class="card mb-3">
                 <h5 class="card-header">Most Liked</h5>
                 <div class="card-body">
-                    <h5 class="card-title">Blog</h5>
-                    <p class="card-text">Blog description</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                    <h5 class="card-title" th:text="${mostLikedPost.title}" >Blog</h5>
+                    <p class="card-text" th:text="${mostLikedPost.body}">Blog description</p>
+                    <a th:href="@{/posts/view/{id}(id=${mostLikedPost.id})}" class="btn btn-primary" >View</a>
                 </div>
             </div>
             <div class="card mb-3">
                 <h5 class="card-header">Most Viewed</h5>
                 <div class="card-body">
-                    <h5 class="card-title">Blog</h5>
-                    <p class="card-text">Blog description</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                    <h5 class="card-title" th:text="${mostViewedPost.title}">Blog</h5>
+                    <p class="card-text" th:text="${mostViewedPost.body}">Blog description</p>
+                    <a th:href="@{/posts/view/{id}(id=${mostViewedPost.id})}" class="btn btn-primary">View</a>
                 </div>
             </div>
             <div class="card mb-3">
                 <h5 class="card-header">Most Commented</h5>
                 <div class="card-body">
-                    <h5 class="card-title">Blog</h5>
-                    <p class="card-text">Blog description</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                    <h5 class="card-title" th:text="${mostCommentedPost.title}">Blog</h5>
+                    <p class="card-text" th:text="${mostCommentedPost.body}">Blog description</p>
+                    <a th:href="@{/posts/view/{id}(id=${mostCommentedPost.id})}" class="btn btn-primary">View</a>
                 </div>
             </div>
+
         </div>
     </div>
 
 
-    <nav aria-label="Page navigation example">
-        <ul class="pagination justify-content-center">
-            <li class="page-item disabled">
-                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-                <a class="page-link" href="#">Next</a>
-            </li>
-        </ul>
-    </nav>
+<div class="row" th:fragment="pagination">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <nav aria-label="Pagination">
+            <ul class="pagination justify-content-center">
+                <li class="page-item" th:each="pageNumber : ${pageNumbers}" >
+                    <a class="page-link" th:href="@{/home(size=${postPage.size}, page=${pageNumber})}" th:text=${pageNumber}>1</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <div class="col-md-2"></div>
+</div>
 
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light border-top">

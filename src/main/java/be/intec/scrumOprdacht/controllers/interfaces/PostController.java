@@ -1,14 +1,17 @@
 package be.intec.scrumOprdacht.controllers.interfaces;
 
+import be.intec.scrumOprdacht.models.Comment;
 import be.intec.scrumOprdacht.models.Post;
-import java.util.List;
+import org.springframework.ui.Model;
 
+import java.security.Principal;
+import java.util.List;
+import java.util.Optional;
 public interface PostController {
 
-//    Post getMostLikedPost();
-//    Post getMostViewedPost();
-//    Post showMostCommentedPost();
-//    List<Post> getBlogsPageSorted(String criteria, int page, int size);
-//    List<Post> getBlogsPageSortedByOldest(int page, int size);
+    String showPosts(Model model,Optional<String> criteria, Optional<Integer> page, Optional<Integer> size);
+    String viewPost(Integer id,Model model);
+    String likesPosts(Integer id,Model model);
+    String addComment(Integer postId,Integer userId,String commentBody,String commentTitle,Model model);
 
 }
