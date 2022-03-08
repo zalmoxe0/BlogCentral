@@ -25,7 +25,7 @@ public class User {
     one blog can not have many users
 
     one blog can have many comments -> many to one
-    one comment can not have many blogs */
+    one comment can not have many blogs    */
 
 
     @Id
@@ -62,6 +62,12 @@ public class User {
 
     @Enumerated(value = EnumType.STRING)
     private Role role;
+
+    public User(String userName, String passCode) {
+        this.userName = userName;
+        this.passCode = passCode;
+
+    }
 
     @Override
     public boolean equals(Object o) {

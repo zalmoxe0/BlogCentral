@@ -30,7 +30,7 @@ public class Comment {
     private String title;
 
     @Column(name = "user_name", nullable = false, unique = true)
-    private String userName;
+    private String username;
 
     @Column(name = "creation", nullable = false)
     private Timestamp creation;
@@ -40,7 +40,7 @@ public class Comment {
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "post_id")
+    @JoinColumn(name = "post")
     private Post post;
 
     @Override

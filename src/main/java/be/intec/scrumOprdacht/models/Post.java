@@ -8,8 +8,8 @@ import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.List;
 import java.util.Objects;
+
 
 @Entity
 @NoArgsConstructor
@@ -18,6 +18,7 @@ import java.util.Objects;
 @Getter
 @Table(name="posts")
 public class Post {
+
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -36,11 +37,6 @@ public class Post {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User owner;
-
-    @OneToMany
-    @JoinColumn(name = "post_id")
-    private List<Comment> comments;
-
 
     @Column(name = "views")
     private Long views;
