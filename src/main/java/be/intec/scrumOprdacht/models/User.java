@@ -63,6 +63,12 @@ public class User {
     @Enumerated(value = EnumType.STRING)
     private Role role;
 
+    public User(String userName, String passCode) {
+        this.userName = userName;
+        this.passCode = passCode;
+
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

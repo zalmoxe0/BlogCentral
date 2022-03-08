@@ -6,7 +6,6 @@ body {
   font-size: 16px;
 }
 
-
 #viewport {
   padding-left: 250px;
   -webkit-transition: all 0.5s ease;
@@ -62,3 +61,23 @@ text-align-last: left;
 #sidebar .nav a i{
   margin-right: 30px;
 }
+
+/*label {*/
+/*  width: 100px;*/
+/*  display: inline-block;*/
+/*  margin: 4px;*/
+/*}*/
+
+/*#loginform {*/
+/*  margin: 0 auto;*/
+/*  width:250px;*/
+/*  padding: 4px;*/
+/*  background-color: dimgrey;*/
+/*  border-radius: 4px;*/
+
+/*}*/
+
+/*#submit {*/
+/*  width: 100%;*/
+/*  margin-top: 10px;*/
+/*}*/
