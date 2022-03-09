@@ -1,28 +1,29 @@
 package be.intec.scrumOprdacht.controllers.implementations;
 
 import be.intec.scrumOprdacht.controllers.interfaces.UserController;
-import be.intec.scrumOprdacht.models.User;
+import be.intec.scrumOprdacht.repositories.RoleRepository;
+import be.intec.scrumOprdacht.repositories.UserRepository;
+import be.intec.scrumOprdacht.services.RoleService;
 import be.intec.scrumOprdacht.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-
-import javax.servlet.http.HttpSession;
+import org.springframework.stereotype.Service;
 
 
-@Controller
+@Service
 public class UserControllerImpl implements UserController {
 
-//    private UserService userService;
-//
-//    @Autowired
-//    public UserControllerImpl(UserService userService) {
-//        this.userService = userService;
-//    }
-//
+    private final UserService userService;
+    private final RoleService roleService;
+
+    private static final String USER_ROLE = "ROLE_USER";
+
+    @Autowired
+    public UserControllerImpl(UserService userService, RoleService roleService) {
+        this.userService = userService;
+        this.roleService = roleService;
+
+    }
+
 //    @Override
 //    @GetMapping("login")
 //    public String goToLoginPage(Model model, HttpSession httpSession) {
@@ -39,8 +40,8 @@ public class UserControllerImpl implements UserController {
 //        }
 //
 //    }
-//
-//
+
+
 //    @Override
 //    @PostMapping("login")
 //    public String Login(@ModelAttribute("user") User userReceived, HttpSession httpSession) {

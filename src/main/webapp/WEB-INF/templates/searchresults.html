@@ -23,28 +23,9 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarScroll">
             <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" th:href="@{/home}">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button"
-                       data-bs-toggle="dropdown" aria-expanded="false">
-                        Link
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="btn btn-outline-success">Sign up</a>
+                    <a th:href="@{/signup}" class="btn btn-outline-success">Sign up</a>
                 </li>
                 <li class="nav-item">
                     <a th:href="@{/login}" class="btn btn-primary">Login</a>
@@ -66,117 +47,83 @@
 <div id="sidebar">
     <ul class="nav">
         <li>
-            <a href="#">
-                <i class="zmdi zmdi-view-dashboard"></i> New Post
+            <a th:href="@{/bloghome}">
+                <i class="zmdi zmdi-link"></i> Bloghome
             </a>
         </li>
-        <li>
-            <a href="#">
-                <i class="zmdi zmdi-link"></i> Profile
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <i class="zmdi zmdi-widgets"></i> Settings
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <i class="zmdi zmdi-calendar"></i> Link
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <i class="zmdi zmdi-info-outline"></i> Link
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <i class="zmdi zmdi-settings"></i> Link
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <i class="zmdi zmdi-comment-more"></i> Link
-            </a>
-        </li>
+
     </ul>
 </div>
-
 
 <div class="container m-auto mt-3 row">
     <h4>Search results for '[[${keyword}]]'</h4><br>
     <div class="col-8">
 
         <div class="card mb-3" th:each="post : ${searchResult}" style="max-width: 800px;">
-            <div class="row g-0">
-                <div class="col-md-5"
-                     style="background-image: url('http://www.3brecruitment.co.uk/website/assets/images/placeholders/blog-placeholder.jpg');background-size: cover">
+            <div class="row g-0" >
+                <div class="col-md-5" style="background-image: url('http://www.3brecruitment.co.uk/website/assets/images/placeholders/blog-placeholder.jpg');background-size: cover">
                 </div>
-                <div class="col-md-7">
+                <div class="col-md-7" >
                     <div class="card-body">
-                        <h5 class="card-title" th:text="${post.title}">Blog</h5>
-                        <p class="card-text" th:text="${post.body}">Blog description</p>
+                        <h5 class="card-title" th:text="${post.title}" >Blog</h5>
+                        <p class="card-text" th:text="${post.body}" >Blog description</p>
                         <p class="card-text" th:text="${post.creation}">
-                        <p class="card-text"><small class="text-muted">Views: X Likes: X</small></p>
+                        <p class="card-text" th:text="${'Views: ' + post.views + ' Likes: ' + post.likes}"><small class="text-muted">Views: X Likes: X</small></p>
+                        <a th:href="@{/view/{id}(id=${post.id})}" class="btn btn-primary" >View</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="col-4">
-        <div class="card mb-3">
-            <h5 class="card-header">Most Liked</h5>
-            <div class="card-body">
-                <h5 class="card-title">Blog</h5>
-                <p class="card-text">Blog description</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
-        <div class="card mb-3">
-            <h5 class="card-header">Most Viewed</h5>
-            <div class="card-body">
-                <h5 class="card-title">Blog</h5>
-                <p class="card-text">Blog description</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
-        <div class="card mb-3">
-            <h5 class="card-header">Most Commented</h5>
-            <div class="card-body">
-                <h5 class="card-title">Blog</h5>
-                <p class="card-text">Blog description</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
-    </div>
+
+<!--    <div class="col-4">-->
+<!--        <div class="card mb-3">-->
+<!--            <h5 class="card-header">Most Liked</h5>-->
+<!--            <div class="card-body">-->
+<!--                <h5 class="card-title" th:text="${mostLikedPost.title}" >Blog</h5>-->
+<!--                <p class="card-text" th:text="${mostLikedPost.body}">Blog description</p>-->
+<!--                <a th:href="@{/posts/view/{id}(id=${mostLikedPost.id})}" class="btn btn-primary" >View</a>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="card mb-3">-->
+<!--            <h5 class="card-header">Most Viewed</h5>-->
+<!--            <div class="card-body">-->
+<!--                <h5 class="card-title" th:text="${mostViewedPost.title}">Blog</h5>-->
+<!--                <p class="card-text" th:text="${mostViewedPost.body}">Blog description</p>-->
+<!--                <a th:href="@{/posts/view/{id}(id=${mostViewedPost.id})}" class="btn btn-primary">View</a>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="card mb-3">-->
+<!--            <h5 class="card-header">Most Commented</h5>-->
+<!--            <div class="card-body">-->
+<!--                <h5 class="card-title" th:text="${mostCommentedPost.title}">Blog</h5>-->
+<!--                <p class="card-text" th:text="${mostCommentedPost.body}">Blog description</p>-->
+<!--                <a th:href="@{/posts/view/{id}(id=${mostCommentedPost.id})}" class="btn btn-primary">View</a>-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--    </div>-->
+<!--</div>-->
+
+
+<!--<div class="row" th:fragment="pagination">-->
+<!--    <div class="col-md-2"></div>-->
+<!--    <div class="col-md-8">-->
+<!--        <nav aria-label="Pagination">-->
+<!--            <ul class="pagination justify-content-center">-->
+<!--                <li class="page-item" th:each="pageNumber : ${pageNumbers}" >-->
+<!--                    <a class="page-link" th:href="@{/home(size=${postPage.size}, page=${pageNumber})}" th:text=${pageNumber}>1</a>-->
+<!--                </li>-->
+<!--            </ul>-->
+<!--        </nav>-->
+<!--    </div>-->
+<!--    <div class="col-md-2"></div>-->
 </div>
-
-
-<nav aria-label="Page navigation example">
-    <ul class="pagination justify-content-center">
-        <li class="page-item disabled">
-            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-        </li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item">
-            <a class="page-link" href="#">Next</a>
-        </li>
-    </ul>
-</nav>
-
-
-<nav class="navbar navbar-expand-lg navbar-light bg-light border-top">
-    <div class="container m-auto">
-        <a href="#" class="m-auto" style="text-decoration: none;">Scrum team 1 > Scrum team 2</a>
-    </div>
-</nav>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
         crossorigin="anonymous"></script>
+<script src="js/main.js"></script>
 </body>
 </html>

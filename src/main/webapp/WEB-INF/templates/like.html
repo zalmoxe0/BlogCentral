@@ -7,10 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-    <link href="css/style.css" rel="stylesheet" />
-    <title>Blog Central</title>
+    <link href="/css/style.css" rel="stylesheet" />
+    <title>Post Likes</title>
 </head>
-
 
 <body>
 
@@ -46,6 +45,7 @@
 </nav>
 <div id="sidebar">
     <ul class="nav">
+
         <li>
             <a th:href="@{/bloghome}">
                 <i class="zmdi zmdi-link"></i> Bloghome
@@ -55,12 +55,14 @@
     </ul>
 </div>
 
-
 <div class="container m-auto mt-3 row">
     <div class="col-8">
 
+        <div th:if="${error}" id ="error">
+            <h2 class="error" th:text="${error}">Error</h2>
+        </div>
 
-        <div class="card mb-3" th:each="post, iStat: ${postPage.content}" style="max-width: 800px;">
+        <div class="card mb-3" th:if="${post}" id="posts" style="max-width: 800px;">
             <div class="row g-0" >
                 <div class="col-md-5" style="background-image: url('http://www.3brecruitment.co.uk/website/assets/images/placeholders/blog-placeholder.jpg');background-size: cover">
                 </div>
@@ -68,9 +70,8 @@
                     <div class="card-body">
                         <h5 class="card-title" th:text="${post.title}" >Blog</h5>
                         <p class="card-text" th:text="${post.body}" >Blog description</p>
-                        <p class="card-text" th:text="${post.creation}">
-                        <p class="card-text" th:text="${'Views: ' + post.views + ' Likes: ' + post.likes}"><small class="text-muted">Views: X Likes: X</small></p>
-                        <a th:href="@{/view/{id}(id=${post.id})}" class="btn btn-primary" >View</a>
+                        <p class="card-text" th:text="${'Views: ' + post.views + ' Likes: ' + post.likes}"><small class="text-muted">Views: X Likes: X</small></p><br>
+                        <a th:href="@{/view/{id}(id=${post.id})}" class="btn btn-primary" >Go to Post</a>
                     </div>
                 </div>
             </div>
@@ -78,56 +79,6 @@
     </div>
 
 
-    <div class="col-4">
-        <div class="card mb-3">
-            <h5 class="card-header">Most Liked</h5>
-            <div class="card-body">
-                <h5 class="card-title" th:text="${mostLikedPost.title}" >Blog</h5>
-                <p class="card-text" th:text="${mostLikedPost.body}">Blog description</p>
-                <a th:href="@{/view/{id}(id=${mostLikedPost.id})}" class="btn btn-primary" >View</a>
-            </div>
-        </div>
-        <div class="card mb-3">
-            <h5 class="card-header">Most Viewed</h5>
-            <div class="card-body">
-                <h5 class="card-title" th:text="${mostViewedPost.title}">Blog</h5>
-                <p class="card-text" th:text="${mostViewedPost.body}">Blog description</p>
-                <a th:href="@{/view/{id}(id=${mostViewedPost.id})}" class="btn btn-primary">View</a>
-            </div>
-        </div>
-        <div class="card mb-3">
-            <h5 class="card-header">Most Commented</h5>
-            <div class="card-body">
-                <h5 class="card-title" th:text="${mostCommentedPost.title}">Blog</h5>
-                <p class="card-text" th:text="${mostCommentedPost.body}">Blog description</p>
-                <a th:href="@{/view/{id}(id=${mostCommentedPost.id})}" class="btn btn-primary">View</a>
-            </div>
-        </div>
-
-    </div>
-</div>
-
-
-<div class="row" th:fragment="pagination">
-    <div class="col-md-2"></div>
-    <div class="col-md-8">
-        <nav aria-label="Pagination">
-            <ul class="pagination justify-content-center">
-                <li class="page-item" th:each="pageNumber : ${pageNumbers}" >
-                    <a class="page-link" th:href="@{/home(size=${postPage.size}, page=${pageNumber})}" th:text=${pageNumber}>1</a>
-                </li>
-            </ul>
-        </nav>
-    </div>
-    <div class="col-md-2"></div>
-</div>
-
-
-<nav class="navbar navbar-expand-lg navbar-light bg-light border-top">
-    <div class="container m-auto">
-        <a href="#" class="m-auto" style="text-decoration: none;">Scrum team 1 > Scrum team 2</a>
-    </div>
-</nav>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
