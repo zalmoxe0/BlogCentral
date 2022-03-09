@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -60,13 +61,13 @@ public class User {
     @Column(name = "passcode", nullable = false)
     private String passCode;
 
-    @Enumerated(value = EnumType.STRING)
-    private Role role;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Collection<Role> roles;
 
     public User(String userName, String passCode) {
         this.userName = userName;
         this.passCode = passCode;
-
     }
 
     @Override
