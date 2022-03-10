@@ -8,7 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
     <link href="css/style.css" rel="stylesheet" />
-    <title>[[${pageTitle}]]</title>
+    <title>New post</title>
 </head>
 
 
@@ -35,14 +35,67 @@
             </ul>
 
             <form class="d-flex" th:action="@{/search}" method="get">
-                <input class="form-control me-2" type="search" name="keyword" placeholder="Search" aria-label="Search">
+                <input class="form-control me-2" type="search" name="keyword" th:value="${keyword}" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
-
         </div>
     </div>
 
+
 </nav>
+<div class="container">
+
+    <!--Show this info message only if posted successfully-->
+    <div class="alert alert-info" th:if="${successMessage}" th:utext="${successMessage}"></div>
+
+    <!--New Post Form-->
+    <div class="row" style="margin-top:20px">
+        <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+            <form autocomplete="off" action="#" th:action="@{/newPost}"
+                  th:object="${post}" method="post" class="form-horizontal"
+                  role="form">
+
+                <h2 class="text-center">Write new post</h2>
+
+                <div class="form-group">
+                    <label th:if="${#fields.hasErrors('title')}" th:errors="*{title}"
+                           class="alert alert-danger"></label>
+                    <input type="text" th:field="*{title}" placeholder="Title"
+                           class="form-control input-lg"/>
+                </div>
+
+                <div class="form-group">
+                    <label th:if="${#fields.hasErrors('body')}" th:errors="*{body}"
+                           class="alert alert-danger"></label>
+                    <textarea th:field="*{body}" placeholder="Body"
+                              class="form-control input-lg"/>
+                </div>
+
+                <input type="hidden" th:field="*{user}"/>
+                <input type="hidden" th:field="*{id}"/>
+
+                <div class="form-group">
+                    <input type="submit" class="btn btn-primary btn-block" value="Save"/>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <!--Delete Button-->
+    <!--Dont show delete button if the post is brand new-->
+    <div class="row" th:if="${post.id}">
+        <div class="col-md-6 col-md-offset-3">
+            <form action="#" th:action="@{'/post/{id}'(id=${post.id})}" th:method="delete"
+                  class="form-horizontal">
+                <div class="form-group">
+                    <input type="hidden" name="_method" value="delete"/>
+                    <button type="submit" class="btn btn-danger btn-block" th:text="Delete">Delete</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 <div id="sidebar">
     <ul class="nav">
         <li>
@@ -50,31 +103,14 @@
                 <i class="zmdi zmdi-link"></i> Bloghome
             </a>
         </li>
-
     </ul>
 </div>
 
-<div class="container m-auto mt-3 row">
-    <h4>Search results for '[[${keyword}]]'</h4><br>
-    <div class="col-8">
 
-        <div class="card mb-3" th:each="post : ${searchResult}" style="max-width: 800px;">
-            <div class="row g-0" >
-                <div class="col-md-5" style="background-image: url('http://www.3brecruitment.co.uk/website/assets/images/placeholders/blog-placeholder.jpg');background-size: cover">
-                </div>
-                <div class="col-md-7" >
-                    <div class="card-body">
-                        <h5 class="card-title" th:text="${post.title}" >Blog</h5>
-                        <p class="card-text" th:text="${post.body}" >Blog description</p>
-                        <p class="card-text" th:text="${post.creation}">
-                        <p class="card-text" th:text="${'Views: ' + post.views + ' Likes: ' + post.likes}"><small class="text-muted">Views: X Likes: X</small></p>
-                        <a th:href="@{/view/{id}(id=${post.id})}" class="btn btn-primary" >View</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+
+
+
+
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"

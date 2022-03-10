@@ -75,24 +75,9 @@ public class PostService {
         return postRepository.findAllWithCommentsCountDesc(postsWithPages);
     }
 
-
-    public List<Post> getAllPosts(){
-        return postRepository.findAll();
-    }
-
-    public void createPost(Post post) {
-        postRepository.save(post);
-    }
-
-    public Optional<Post> getPostById(Integer id){
-        Optional<Post> optionalPost = postRepository.findById(id);
-        if (optionalPost.isPresent()){
-            Post post = optionalPost.get();
-            long updatedViews = post.getViews() + 1;
-            post.setViews(updatedViews);
-            postRepository.save(post);
-        }
-        return optionalPost;
+    public Page<Post> getPostsByUserOrderByCreation(User user,int page,int size){
+        Pageable postsWithPages = PageRequest.of(page,size, Sort.by("creation").descending());
+        return postRepository.findByOwnerOrderByCreation(user,postsWithPages);
     }
 
     public Optional<Post> updateLikes(Integer id){
@@ -125,10 +110,6 @@ public class PostService {
         return Optional.empty();
     }
 
-    public void deletePost(Post post) {
-        postRepository.delete(post);
-    }
-
 
     public Post getMostLikedPost() {
         Page<Post> postPage = getPostsPageSortedByMostLikes(0, 1);
@@ -148,6 +129,30 @@ public class PostService {
     public List<Post> getPosts() {
         return postRepository.findAll();
     }
+
+    public List<Post> getAllPosts(){
+        return postRepository.findAll();
+    }
+
+    public void createPost(Post post) {
+        postRepository.save(post);
+    }
+
+    public Optional<Post> getPostById(Integer id){
+        Optional<Post> optionalPost = postRepository.findById(id);
+        if (optionalPost.isPresent()){
+            Post post = optionalPost.get();
+            long updatedViews = post.getViews() + 1;
+            post.setViews(updatedViews);
+            postRepository.save(post);
+        }
+        return optionalPost;
+    }
+
+    public void deletePost(Post post) {
+        postRepository.delete(post);
+    }
+
 
     //SEARCH FUNCTION HEADER
     public List<Post> search(String keyword) {
