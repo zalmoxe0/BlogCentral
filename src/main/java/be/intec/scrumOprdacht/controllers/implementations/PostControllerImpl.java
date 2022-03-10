@@ -41,7 +41,7 @@ public class PostControllerImpl implements PostController {
                             @RequestParam("size") Optional<Integer> size) {
 
         int currentPage = page.orElse(1);
-        int pageSize = size.orElse(10);
+        int pageSize = size.orElse(6);
         String pageCriteria = criteria.orElse("newest");
 
         Page<Post> postPage = null;
@@ -123,7 +123,7 @@ public class PostControllerImpl implements PostController {
     @RequestMapping(value = "/newPost", method = RequestMethod.GET)
     public String newPost(Principal principal, Model model) {
 
-        Optional<User> user = userService.findByUsername(principal.getName());
+        Optional<User> user = userService.getByUserName(principal.getName());
         if (user.isPresent()) {
             Post post = new Post();
             post.setOwner(user.get());

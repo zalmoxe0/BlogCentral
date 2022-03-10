@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 
 <head>
     <meta charset="UTF-8">
@@ -23,11 +23,11 @@
         <div class="collapse navbar-collapse" id="navbarScroll">
             <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
 
-                <li class="nav-item">
+                <li class="nav-item" sec:authorize="isAnonymous()">
                     <a th:href="@{/signup}" class="btn btn-outline-success">Sign up</a>
                 </li>
-                <li class="nav-item">
-                    <a th:href="@{/login}" class="btn btn-primary">Login</a>
+                <li class="nav-item" sec:authorize="isAnonymous()">
+                    <a th:href="@{/login}" class="btn btn-primary" >Login</a>
                 </li>
                 <li class="nav-item">
                     <a th:href="@{/logout}" class="btn btn-outline-success">Logout</a>
@@ -70,12 +70,12 @@
                     <div class="card-body">
                         <h5 class="card-title" th:text="${post.title}" >Blog</h5>
                         <p class="card-text" th:text="${post.body}" >Blog description</p>
-
                         <p class="card-text" th:text="${'Views: ' + post.views + ' Likes: ' + post.likes}"><small class="text-muted">Views: X Likes: X</small></p>
-
                         <a th:href="@{/like/{id}(id=${post.id})}" class="btn btn-primary" >Like</a>
+                        <a th:href="@{#}" class="btn btn-primary" >Go to the Author</a>
                         <br>
-                        <h3>Comments</h3><br>
+                        <br>
+                        <h3>Comments</h3>
                         <div th:each="comment : ${post.comments}">
                             <li th:text="${'user: ' + comment.userName + ', title: ' + comment.title + ', comment: ' + comment.body }"/>
                         </div>

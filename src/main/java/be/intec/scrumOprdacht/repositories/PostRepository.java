@@ -1,6 +1,7 @@
 package be.intec.scrumOprdacht.repositories;
 
 import be.intec.scrumOprdacht.models.Post;
+import be.intec.scrumOprdacht.models.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -27,4 +28,7 @@ public interface PostRepository extends JpaRepository <Post, Integer> {
             countQuery = "select count(p) from Post p "
     )
     Page<Post> findAllWithCommentsCountDesc(Pageable pageable);
+
+    Page<Post> findByOwnerOrderByCreation(User user, Pageable pageable);
+
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 
 <head>
     <meta charset="UTF-8">
@@ -7,13 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-    <link href="css/style.css" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet"/>
     <title>Blog Central</title>
 </head>
 
 
 <body>
-
 <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
         <a class="navbar-brand" th:href="@{/home}">Blog Central</a>
@@ -22,21 +21,26 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarScroll">
+
             <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
 
-                <li class="nav-item">
+                <!--    sec:authorize="isAnonymous()"  -> When logged in button will disappear  -->
+                <li class="nav-item" sec:authorize="isAnonymous()">
                     <a th:href="@{/signup}" class="btn btn-outline-success">Sign up</a>
                 </li>
-                <li class="nav-item">
-                    <a th:href="@{/login}" class="btn btn-primary" >Login</a>
+                <li class="nav-item" sec:authorize="isAnonymous()">
+                    <a th:href="@{/login}" class="btn btn-primary">Login</a>
                 </li>
                 <li class="nav-item">
                     <a th:href="@{/logout}" class="btn btn-outline-success">Logout</a>
                 </li>
             </ul>
 
+
+
             <form class="d-flex" th:action="@{/search}" method="get">
-                <input class="form-control me-2" type="search" name="keyword" th:value="${keyword}" placeholder="Search" aria-label="Search">
+                <input class="form-control me-2" type="search" name="keyword" th:value="${keyword}" placeholder="Search"
+                       aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
 
@@ -45,9 +49,9 @@
 
 </nav>
 <div id="sidebar">
-    <ul class="nav">
+    <ul class="nav" sec:authorize="hasRole('Author')">
         <li>
-            <a th:href="@{/bloghome}">
+            <a th:href="@{'/bloghome/' + ${#authentication.getName()}}">
                 <i class="zmdi zmdi-link"></i> Bloghome
             </a>
         </li>
@@ -59,32 +63,38 @@
 <div class="container m-auto mt-3 row">
     <div class="col-8">
 
+        <div align="center">
+            <a th:href="@{/home(criteria=oldest)}" class="btn btn-primary">Oldest</a>
+            <a th:href="@{/home(criteria=newest)}" class="btn btn-primary">Newest</a>
+            <a th:href="@{/home(criteria=views)}" class="btn btn-primary">Most popular</a>
+        </div><br>
 
         <div class="card mb-3" th:each="post, iStat: ${postPage.content}" style="max-width: 800px;">
-            <div class="row g-0" >
-                <div class="col-md-5" style="background-image: url('http://www.3brecruitment.co.uk/website/assets/images/placeholders/blog-placeholder.jpg');background-size: cover">
+            <div class="row g-0">
+                <div class="col-md-5"
+                     style="background-image: url('http://www.3brecruitment.co.uk/website/assets/images/placeholders/blog-placeholder.jpg');background-size: cover">
                 </div>
-                <div class="col-md-7" >
+                <div class="col-md-7">
                     <div class="card-body">
-                        <h5 class="card-title" th:text="${post.title}" >Blog</h5>
-                        <p class="card-text" th:text="${post.body}" >Blog description</p>
+                        <h5 class="card-title" th:text="${post.title}">Blog</h5>
+                        <p class="card-text" th:text="${post.body}">Blog description</p>
                         <p class="card-text" th:text="${post.creation}">
-                        <p class="card-text" th:text="${'Views: ' + post.views + ' Likes: ' + post.likes}"><small class="text-muted">Views: X Likes: X</small></p>
-                        <a th:href="@{/view/{id}(id=${post.id})}" class="btn btn-primary" >View</a>
+                        <p class="card-text" th:text="${'Views: ' + post.views + ' Likes: ' + post.likes}"><small
+                                class="text-muted">Views: X Likes: X</small></p>
+                        <a th:href="@{/view/{id}(id=${post.id})}" class="btn btn-primary">View</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-
     <div class="col-4">
         <div class="card mb-3">
             <h5 class="card-header">Most Liked</h5>
             <div class="card-body">
-                <h5 class="card-title" th:text="${mostLikedPost.title}" >Blog</h5>
+                <h5 class="card-title" th:text="${mostLikedPost.title}">Blog</h5>
                 <p class="card-text" th:text="${mostLikedPost.body}">Blog description</p>
-                <a th:href="@{/view/{id}(id=${mostLikedPost.id})}" class="btn btn-primary" >View</a>
+                <a th:href="@{/view/{id}(id=${mostLikedPost.id})}" class="btn btn-primary">View</a>
             </div>
         </div>
         <div class="card mb-3">
@@ -113,8 +123,9 @@
     <div class="col-md-8">
         <nav aria-label="Pagination">
             <ul class="pagination justify-content-center">
-                <li class="page-item" th:each="pageNumber : ${pageNumbers}" >
-                    <a class="page-link" th:href="@{/home(size=${postPage.size}, page=${pageNumber})}" th:text=${pageNumber}>1</a>
+                <li class="page-item" th:each="pageNumber : ${pageNumbers}">
+                    <a class="page-link" th:href="@{/home(size=${postPage.size}, page=${pageNumber})}"
+                       th:text=${pageNumber}>1</a>
                 </li>
             </ul>
         </nav>

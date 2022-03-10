@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 
 <head>
     <meta charset="UTF-8">
@@ -26,16 +26,22 @@
         <div class="collapse navbar-collapse" id="navbarScroll">
             <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
 
-                <li class="nav-item">
+                <!--    sec:authorize="isAnonymous()"  -> When logged in button will disappear  -->
+                <li class="nav-item" sec:authorize="isAnonymous()">
                     <a th:href="@{/signup}" class="btn btn-outline-success">Sign up</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" sec:authorize="isAnonymous()">
                     <a th:href="@{/login}" class="btn btn-primary" >Login</a>
                 </li>
                 <li class="nav-item">
                     <a th:href="@{/logout}" class="btn btn-outline-success">Logout</a>
                 </li>
             </ul>
+
+            <!--    Go back option    -->
+            <div align="center">
+                <a class="btn btn-primary" onclick="history.go(-1)">Go to previous page</a>
+            </div><br>
 
             <form class="d-flex" th:action="@{/search}" method="get">
                 <input class="form-control me-2" type="search" name="keyword" th:value="${keyword}" placeholder="Search" aria-label="Search">

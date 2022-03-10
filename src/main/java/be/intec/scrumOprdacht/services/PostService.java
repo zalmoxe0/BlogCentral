@@ -75,6 +75,11 @@ public class PostService {
         return postRepository.findAllWithCommentsCountDesc(postsWithPages);
     }
 
+    public Page<Post> getPostsByUserOrderByCreation(User user,int page,int size){
+        Pageable postsWithPages = PageRequest.of(page,size, Sort.by("creation").descending());
+        return postRepository.findByOwnerOrderByCreation(user,postsWithPages);
+    }
+
     public Optional<Post> updateLikes(Integer id){
         Optional<Post> optionalPost = postRepository.findById(id);
         if (optionalPost.isPresent()){
