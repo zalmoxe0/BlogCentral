@@ -77,7 +77,7 @@ public class PostService {
 
     public Page<Post> getPostsByUserOrderByCreation(User user,int page,int size){
         Pageable postsWithPages = PageRequest.of(page,size, Sort.by("creation").descending());
-        return postRepository.findByOwnerOrderByCreation(user,postsWithPages);
+        return postRepository.findByOwner(user,postsWithPages);
     }
 
     public Optional<Post> updateLikes(Integer id){
@@ -135,6 +135,9 @@ public class PostService {
     }
 
     public void createPost(Post post) {
+        post.setCreation(Timestamp.valueOf(LocalDateTime.now()));
+        post.setViews(0L);
+        post.setLikes(0L);
         postRepository.save(post);
     }
 

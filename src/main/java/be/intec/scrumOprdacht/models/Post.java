@@ -26,13 +26,13 @@ public class Post {
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "body", nullable = false)
+    @Column(name = "body", nullable = true)
     private String body;
 
-    @Column(name = "title", nullable = false)
+    @Column(name = "title", nullable = true)
     private String title;
 
-    @Column(name = "creation", nullable = false)
+    @Column(name = "creation", nullable = true)
     private Timestamp creation;
 
     @ManyToOne
@@ -43,10 +43,10 @@ public class Post {
     @JoinColumn(name = "post_id")
     private List<Comment> comments;
 
-    @Column(name = "views")
+    @Column(name = "views", columnDefinition = "integer default 0")
     private Long views;
 
-    @Column(name = "likes")
+    @Column(name = "likes",columnDefinition = "integer default 0")
     private Long likes;
 
     @Override
