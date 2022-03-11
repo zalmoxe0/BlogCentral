@@ -72,42 +72,47 @@
                         <div class="col-md-12 text-center">
                             <h1 >Signup</h1>
                         </div>
+                        <div class="alert alert-info" th:if="${successMessage}" th:utext="${successMessage}"></div>
                     </div>
-                    <form action="#" name="registration">
+                    <form action="/registration" name="registration" method="post">
                         <div class="form-group">
                             <label for="exampleInputEmail1">First Name</label>
-                            <input type="text"  name="firstname" class="form-control" id="firstname" aria-describedby="emailHelp" placeholder="Enter Firstname">
+                            <input type="text"  name="firstName" class="form-control" th:value ="${user.firstName}" id="firstname" aria-describedby="emailHelp" placeholder="Enter Firstname">
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Last Name</label>
-                            <input type="text"  name="lastname" class="form-control" id="lastname" aria-describedby="emailHelp" placeholder="Enter Lastname">
+                            <input type="text"  name="lastName" class="form-control" id="lastname"  th:value ="${user.lastName}" aria-describedby="emailHelp" placeholder="Enter Lastname">
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Email address</label>
-                            <input type="email" name="email"  class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
+                            <input type="email" name="email"  class="form-control" th:value ="${user.email}"id="email" aria-describedby="emailHelp" placeholder="Enter email">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Username</label>
+                            <input type="text" name="userName" id="username"  class="form-control" th:value ="${user.userName}" aria-describedby="emailHelp" placeholder="Enter Password">
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Password</label>
-                            <input type="password" name="password" id="password"  class="form-control" aria-describedby="emailHelp" placeholder="Enter Password">
+                            <input type="password" name="passCode" id="password"  class="form-control" th:value ="${user.passCode}" aria-describedby="emailHelp" placeholder="Enter Password">
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Street</label>
-                            <input type="street" name="street" id="street"  class="form-control" aria-describedby="emailHelp" placeholder="Enter Your Street">
+                            <input type="street" name="street" id="street"  class="form-control" th:value ="${user.street}" aria-describedby="emailHelp" placeholder="Enter Your Street">
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">House number</label>
-                            <input type="House number" name="House number" id="House number"  class="form-control" aria-describedby="emailHelp" placeholder="Enter House number">
+                            <input type="House number" name="house_number" id="House number"  th:value ="${user.house_number}" class="form-control" aria-describedby="emailHelp" placeholder="Enter House number">
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">City</label>
-                            <input type="city" name="city" id="city"  class="form-control" aria-describedby="emailHelp" placeholder="Enter city">
+                            <input type="city" name="city" id="city"  class="form-control"  th:value ="${user.city}" aria-describedby="emailHelp" placeholder="Enter city">
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Zipcode</label>
-                            <input type="zipcode" name="zipcode" id="zipcode"  class="form-control" aria-describedby="emailHelp" placeholder="Enter zipcode">
+                            <input type="zipcode" name="zip" id="zipcode"  class="form-control"  th:value ="${user.zip}" aria-describedby="emailHelp" placeholder="Enter zipcode">
                         </div>
                         <div class="col-md-12 text-center mb-3">
-                            <button type="submit" class=" btn btn-block mybtn btn-primary tx-tfm">Get Started For Free</button>
+                            <button type="submit" class=" btn btn-block mybtn btn-primary tx-tfm" value="Submit">Get Started For Free</button>
                         </div>
                         <div class="col-md-12 ">
                             <div class="form-group">

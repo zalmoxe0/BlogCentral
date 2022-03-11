@@ -44,15 +44,18 @@ public class PostControllerImpl implements PostController {
         int pageSize = size.orElse(6);
         String pageCriteria = criteria.orElse("newest");
 
+
         Page<Post> postPage = null;
         if ("views".equals(pageCriteria)) {
             postPage = postService.getPostsPageSortedByMostViews(currentPage - 1, pageSize);
         } else if ("oldest".equals(pageCriteria)) {
             postPage = postService.getPostsPageSortedByOldest(currentPage - 1, pageSize);
         } else {
+            pageCriteria="newest";
             postPage = postService.getPostsPageSortedByNewest(currentPage - 1, pageSize);
         }
 
+        model.addAttribute("criteria", pageCriteria);
         model.addAttribute("postPage", postPage);
 
         int totalPages = postPage.getTotalPages();
@@ -86,7 +89,7 @@ public class PostControllerImpl implements PostController {
         } else {
             model.addAttribute("error", "Post not found!!!");
         }
-        return "posts/view";
+        return "view";
     }
 
     @Override
@@ -99,7 +102,7 @@ public class PostControllerImpl implements PostController {
         } else {
             model.addAttribute("error", "Post not found!!!");
         }
-        return "posts/like";
+        return "view";
     }
 
     @Override
@@ -114,13 +117,13 @@ public class PostControllerImpl implements PostController {
             model.addAttribute("error", "Comment not added(User or Post not found)!!!");
         }
 
-        return "posts/view";
+        return "view";
     }
 
     // post related methods
 
     @Override
-    @RequestMapping(value = "/newPost", method = RequestMethod.GET)
+    @RequestMapping(value = "/newpost", method = RequestMethod.GET)
     public String newPost(Principal principal, Model model) {
 
         Optional<User> user = userService.getByUserName(principal.getName());
@@ -137,7 +140,7 @@ public class PostControllerImpl implements PostController {
     }
 
     @Override
-    @RequestMapping(value = "/newPost", method = RequestMethod.POST)
+    @RequestMapping(value = "/newpost", method = RequestMethod.POST)
     public String createNewPost(@Valid Post post,
                                 BindingResult bindingResult) {
 
@@ -145,7 +148,7 @@ public class PostControllerImpl implements PostController {
             return "/newpost";
         } else {
             postService.createPost(post);
-            return "redirect:/view/" + post.getOwner().getUserName();
+            return "redirect:/bloghome/" + post.getOwner().getUserName();
         }
     }
 

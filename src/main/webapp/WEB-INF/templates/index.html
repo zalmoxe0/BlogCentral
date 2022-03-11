@@ -26,7 +26,7 @@
 
                 <!--    sec:authorize="isAnonymous()"  -> When logged in button will disappear  -->
                 <li class="nav-item" sec:authorize="isAnonymous()">
-                    <a th:href="@{/signup}" class="btn btn-outline-success">Sign up</a>
+                    <a th:href="@{/registration}" class="btn btn-outline-success">Sign up</a>
                 </li>
                 <li class="nav-item" sec:authorize="isAnonymous()">
                     <a th:href="@{/login}" class="btn btn-primary">Login</a>
@@ -81,7 +81,7 @@
                         <p class="card-text" th:text="${post.creation}">
                         <p class="card-text" th:text="${'Views: ' + post.views + ' Likes: ' + post.likes}"><small
                                 class="text-muted">Views: X Likes: X</small></p>
-                        <a th:href="@{/view/{id}(id=${post.id})}" class="btn btn-primary">View</a>
+                        <a th:href="@{/posts/view/{id}(id=${post.id})}" class="btn btn-primary">View</a>
                     </div>
                 </div>
             </div>
@@ -94,7 +94,7 @@
             <div class="card-body">
                 <h5 class="card-title" th:text="${mostLikedPost.title}">Blog</h5>
                 <p class="card-text" th:text="${mostLikedPost.body}">Blog description</p>
-                <a th:href="@{/view/{id}(id=${mostLikedPost.id})}" class="btn btn-primary">View</a>
+                <a th:href="@{/posts/view/{id}(id=${mostLikedPost.id})}" class="btn btn-primary">View</a>
             </div>
         </div>
         <div class="card mb-3">
@@ -102,7 +102,7 @@
             <div class="card-body">
                 <h5 class="card-title" th:text="${mostViewedPost.title}">Blog</h5>
                 <p class="card-text" th:text="${mostViewedPost.body}">Blog description</p>
-                <a th:href="@{/view/{id}(id=${mostViewedPost.id})}" class="btn btn-primary">View</a>
+                <a th:href="@{/posts/view/{id}(id=${mostViewedPost.id})}" class="btn btn-primary">View</a>
             </div>
         </div>
         <div class="card mb-3">
@@ -110,7 +110,7 @@
             <div class="card-body">
                 <h5 class="card-title" th:text="${mostCommentedPost.title}">Blog</h5>
                 <p class="card-text" th:text="${mostCommentedPost.body}">Blog description</p>
-                <a th:href="@{/view/{id}(id=${mostCommentedPost.id})}" class="btn btn-primary">View</a>
+                <a th:href="@{/posts/view/{id}(id=${mostCommentedPost.id})}" class="btn btn-primary">View</a>
             </div>
         </div>
 
@@ -124,7 +124,7 @@
         <nav aria-label="Pagination">
             <ul class="pagination justify-content-center">
                 <li class="page-item" th:each="pageNumber : ${pageNumbers}">
-                    <a class="page-link" th:href="@{/home(size=${postPage.size}, page=${pageNumber})}"
+                    <a class="page-link" th:href="@{/home(criteria=${criteria}, size=${postPage.size}, page=${pageNumber})}"
                        th:text=${pageNumber}>1</a>
                 </li>
             </ul>

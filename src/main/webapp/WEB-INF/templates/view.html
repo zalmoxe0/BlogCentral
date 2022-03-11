@@ -45,9 +45,9 @@
 
 </nav>
 <div id="sidebar">
-    <ul class="nav">
+    <ul class="nav" sec:authorize="hasRole('Author')">
         <li>
-            <a th:href="@{/bloghome}">
+            <a th:href="@{'/bloghome/' + ${#authentication.getName()}}">
                 <i class="zmdi zmdi-link"></i> Bloghome
             </a>
         </li>
@@ -71,7 +71,7 @@
                         <h5 class="card-title" th:text="${post.title}" >Blog</h5>
                         <p class="card-text" th:text="${post.body}" >Blog description</p>
                         <p class="card-text" th:text="${'Views: ' + post.views + ' Likes: ' + post.likes}"><small class="text-muted">Views: X Likes: X</small></p>
-                        <a th:href="@{/like/{id}(id=${post.id})}" class="btn btn-primary" >Like</a>
+                        <a th:href="@{/posts/like/{id}(id=${post.id})}" class="btn btn-primary" >Like</a>
                         <a th:href="@{#}" class="btn btn-primary" >Go to the Author</a>
                         <br>
                         <br>

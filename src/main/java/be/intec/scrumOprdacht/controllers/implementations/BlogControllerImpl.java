@@ -14,7 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Controller
 public class BlogControllerImpl implements BlogController {
@@ -41,10 +44,17 @@ public class BlogControllerImpl implements BlogController {
 
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
-            Page<Post> posts = postService.getPostsByUserOrderByCreation(user, currentPage, pageSize);
+            Page<Post> posts = postService.getPostsByUserOrderByCreation(user, currentPage-1, pageSize);
 
             model.addAttribute("posts", posts);
             model.addAttribute("user", user);
+            int totalPages = posts.getTotalPages();
+            if (totalPages > 0) {
+                List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+                        .boxed()
+                        .collect(Collectors.toList());
+                model.addAttribute("pageNumbers", pageNumbers);
+            }
 
             return "bloghome";
         } else {

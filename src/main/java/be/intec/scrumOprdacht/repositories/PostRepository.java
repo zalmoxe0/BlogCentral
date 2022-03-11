@@ -29,6 +29,6 @@ public interface PostRepository extends JpaRepository <Post, Integer> {
     )
     Page<Post> findAllWithCommentsCountDesc(Pageable pageable);
 
-    Page<Post> findByOwnerOrderByCreation(User user, Pageable pageable);
+    Page<Post> findByOwner(User user, Pageable pageable);
 
 }
